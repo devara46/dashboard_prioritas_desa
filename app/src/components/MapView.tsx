@@ -1,12 +1,23 @@
 import { useEffect, useRef } from "react";
-import { Map as MaplibreMap, NavigationControl, Popup } from "maplibre-gl";
+import { Map as MaplibreMap, NavigationControl, Popup, setWorkerUrl } from "maplibre-gl";
 import type { ExpressionSpecification, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+// MapLibre computes its worker's URL at runtime relative to its OWN bundled file
+// (new URL('./maplibre-gl-worker.mjs', import.meta.url)). Vite's dev server keeps
+// package files separate so that resolves correctly on its own, but a production
+// build squashes everything into one bundle — Rollup never emits that sibling
+// worker file, so the computed URL 404s (only in production, silently: the layer
+// object still gets added, it just never gets tessellated into visible geometry).
+// The `?url` import below makes Rollup treat the worker as a real emitted asset
+// with a correct hashed path, and setWorkerUrl points MapLibre at it explicitly.
+import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import type { FeatureCollection } from "geojson";
 import type { VillageGeoJSON } from "../hooks/useVillages";
 import { PROFIL_SHORT } from "../types";
 import type { Profil } from "../types";
 import { HATCH_PATTERN_ID, buildHatchPatternImage } from "../lib/hatchPattern";
+
+setWorkerUrl(maplibreWorkerUrl);
 
 // Q1 gets the most saturated hue — it must read as dominant from viewing
 // distance since it's the sole focus of the intervention framework. Q2–Q4 are
