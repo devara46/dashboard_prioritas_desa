@@ -2,22 +2,23 @@ import { useEffect, useRef } from "react";
 import { Map as MaplibreMap, NavigationControl, Popup, setWorkerUrl } from "maplibre-gl";
 import type { ExpressionSpecification, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-// MapLibre computes its worker's URL at runtime relative to its OWN bundled file
-// (new URL('./maplibre-gl-worker.mjs', import.meta.url)). Vite's dev server keeps
-// package files separate so that resolves correctly on its own, but a production
-// build squashes everything into one bundle — Rollup never emits that sibling
-// worker file, so the computed URL 404s (only in production, silently: the layer
-// object still gets added, it just never gets tessellated into visible geometry).
-// The `?url` import below makes Rollup treat the worker as a real emitted asset
-// with a correct hashed path, and setWorkerUrl points MapLibre at it explicitly.
-import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import type { FeatureCollection } from "geojson";
 import type { VillageGeoJSON } from "../hooks/useVillages";
 import { PROFIL_SHORT } from "../types";
 import type { Profil } from "../types";
 import { HATCH_PATTERN_ID, buildHatchPatternImage } from "../lib/hatchPattern";
 
-setWorkerUrl(maplibreWorkerUrl);
+// MapLibre computes its worker's URL at runtime relative to its OWN bundled file,
+// and that worker script has its own internal relative import to a second file
+// (maplibre-gl-shared.mjs). Vite's dev server keeps package files in their real
+// node_modules locations so both resolve correctly by accident; a production
+// build squashes everything into one bundle, which breaks both assumptions (only
+// in production, silently: the layer object still gets added, it just never gets
+// tessellated into visible geometry). scripts/copy-maplibre-worker.mjs copies both
+// files verbatim (unhashed, original names, same directory) into public/maplibre/
+// before every build so their relative relationship survives untouched, and this
+// points MapLibre at that copy explicitly instead of letting it auto-detect a path.
+setWorkerUrl(`${import.meta.env.BASE_URL}maplibre/maplibre-gl-worker.mjs`);
 
 // Q1 gets the most saturated hue — it must read as dominant from viewing
 // distance since it's the sole focus of the intervention framework. Q2–Q4 are
