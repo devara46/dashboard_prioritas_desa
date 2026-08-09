@@ -1,0 +1,147 @@
+:root {
+  color-scheme: light;
+  --surface-1: #fcfcfb;
+  --surface-2: #f9f9f7;
+  --surface-3: #ffffff;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+
+  --series-1: #2a78d6; /* blue - Q1 focus / Prioritas I */
+  --series-2: #eb6834; /* orange - Kelompok 2 / Q4 */
+  --series-3: #1baf7a; /* aqua */
+  --series-4: #eda100; /* yellow */
+  --series-8: #e34948; /* red - diverging pole */
+
+  --seq-150: #b7d3f6;
+  --seq-300: #6da7ec;
+  --seq-450: #2a78d6;
+
+  --neutral-100: #eceae4;
+  --neutral-300: #d3d1c8;
+  --neutral-500: #a6a49b;
+
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --surface-2: #0d0d0d;
+  --surface-3: #232322;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --gridline: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-8: #e66767;
+
+  --seq-150: #184f95;
+  --seq-300: #256abf;
+  --seq-450: #3987e5;
+
+  --neutral-100: #2c2c2a;
+  --neutral-300: #3a3a37;
+  --neutral-500: #5c5b56;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #0d0d0d;
+    --surface-3: #232322;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --gridline: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-8: #e66767;
+
+    --seq-150: #184f95;
+    --seq-300: #256abf;
+    --seq-450: #3987e5;
+
+    --neutral-100: #2c2c2a;
+    --neutral-300: #3a3a37;
+    --neutral-500: #5c5b56;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  color: var(--series-1);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* MapLibre's popup is a plain DOM node (not shadow-isolated), so it inherits our
+   dark-mode text color while maplibre-gl.css keeps its background white — without
+   an override, dark mode renders white-on-white and reads as empty. maplibre-gl.css
+   is injected after this file (it's imported deeper in the module graph), so an
+   equal-specificity `.maplibregl-popup-content` rule here would lose the cascade
+   tie on load order alone — the extra `.maplibregl-map` ancestor raises specificity
+   so this wins regardless of stylesheet order. */
+.maplibregl-map .maplibregl-popup-content {
+  background: var(--surface-3);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px var(--border);
+}
+.maplibregl-map .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--surface-3);
+}
+.maplibregl-map .maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--surface-3);
+}
+.maplibregl-map .maplibregl-popup-anchor-left .maplibregl-popup-tip {
+  border-right-color: var(--surface-3);
+}
+.maplibregl-map .maplibregl-popup-anchor-right .maplibregl-popup-tip {
+  border-left-color: var(--surface-3);
+}
