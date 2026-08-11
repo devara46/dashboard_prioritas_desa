@@ -83,6 +83,9 @@ export function MethodologyPanel() {
                 perbankan, infrastruktur pertanian, konektivitas fisik, konektivitas digital,
                 modal manusia, dan fasilitas kesehatan.
               </li>
+              <li>
+                Data batas administratif desa bersumber dari Rupa Bumi Indonesia (RBI).
+              </li>
             </ul>
           </div>
 

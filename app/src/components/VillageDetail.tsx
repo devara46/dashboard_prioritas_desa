@@ -97,6 +97,26 @@ export function VillageDetail({ village, onClose }: Props) {
           </button>
         </div>
 
+        {v.in_scope && v.profil_code === 1 && !v.no_binding_constraint && (
+          <div
+            style={{
+              padding: "10px 12px",
+              borderRadius: 8,
+              background: "var(--surface-2)",
+              border: "1px solid var(--series-1)",
+            }}
+          >
+            <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Kendala Utama</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: "var(--series-1)" }}>
+              {v.kendala_utama_label}
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 2 }}>
+              {v.jenjang_prioritas}
+              {v.severity !== null && ` · severity ${v.severity.toFixed(2)}`}
+            </div>
+          </div>
+        )}
+
         {!v.in_scope ? (
           <div
             style={{

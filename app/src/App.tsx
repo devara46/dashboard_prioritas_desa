@@ -8,6 +8,7 @@ import { VillageDetail } from "./components/VillageDetail";
 import { StatSummary } from "./components/StatSummary";
 import { ProfilLegend } from "./components/ProfilLegend";
 import { MethodologyPanel } from "./components/MethodologyPanel";
+import { RegionFilter, SEMUA } from "./components/RegionFilter";
 
 type Tab = "peta" | "sebaran" | "determinan" | "prioritas";
 
@@ -22,6 +23,8 @@ function App() {
   const { records, error } = useVillages();
   const [tab, setTab] = useState<Tab>("peta");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [mapKabupaten, setMapKabupaten] = useState(SEMUA);
+  const [mapKecamatan, setMapKecamatan] = useState(SEMUA);
 
   const onSelect = useCallback((id: string) => setSelectedId(id), []);
   const selectedVillage = useMemo(
@@ -83,9 +86,23 @@ function App() {
       <main style={{ flex: 1, minHeight: 0, padding: 20, display: "flex", flexDirection: "column" }}>
         {tab === "peta" && (
           <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-            <ProfilLegend />
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <ProfilLegend />
+              <RegionFilter
+                records={records}
+                kabupaten={mapKabupaten}
+                kecamatan={mapKecamatan}
+                onKabupatenChange={setMapKabupaten}
+                onKecamatanChange={setMapKecamatan}
+              />
+            </div>
             <div style={{ flex: 1, minHeight: 0, borderRadius: 8, overflow: "hidden", border: "1px solid var(--border)" }}>
-              <MapView onSelect={onSelect} highlightId={selectedId} />
+              <MapView
+                onSelect={onSelect}
+                highlightId={selectedId}
+                kabupaten={mapKabupaten}
+                kecamatan={mapKecamatan}
+              />
             </div>
           </div>
         )}
