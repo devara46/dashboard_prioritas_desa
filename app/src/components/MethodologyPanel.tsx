@@ -113,9 +113,9 @@ export function MethodologyPanel() {
           >
             Purwarupa ini mengoperasionalkan hasil Tabel 3 dari{" "}
             <span style={{ fontStyle: "normal" }}>
-              &ldquo;PRODUKTIVITAS TINGGI, AKTIVASI EKONOMI RENDAH: KERANGKA PENDUKUNG KEPUTUSAN
-              SPASIAL UNTUK DIAGNOSIS KELEMBAGAAN DAN PRIORITAS INTERVENSI DESA DI SULAWESI
-              TENGGARA&rdquo;
+              &ldquo;SULTRA AGRI-VALUE: Potret Dua Wajah di Balik 
+              Tingginya Produktivitas Pertanian melalui Earth Observation 
+              dan Indikator Ekonomi Desa&rdquo;
             </span>{" "}
             oleh Saadi dan Dwicahayaniawan.
           </p>

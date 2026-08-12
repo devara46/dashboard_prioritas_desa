@@ -50,7 +50,7 @@ function App() {
           background: "var(--surface-3)",
         }}
       >
-        <h1 style={{ margin: 0, fontSize: 20 }}>Dasbor Prioritas Desa — Sulawesi Tenggara</h1>
+        <h1 style={{ margin: 0, fontSize: 20 }}>Sultra Agri Value - Dasbor Prioritas Desa</h1>
         <p style={{ margin: "4px 0 12px", fontSize: 13, color: "var(--text-secondary)" }}>
           Kerangka pendukung keputusan spasial: produktivitas pertanian (NDVI) × aktivasi ekonomi
           (VIIRS) × kelembagaan desa (PODES)
