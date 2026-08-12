@@ -7,12 +7,12 @@ interface Row {
 
 const ROWS: Row[] = [
   { blok: "Akses Pasar (B1)", hubungan: "Aktivasi ekonomi ↑", arah: "up", interpretasi: "Berkaitan dengan kepadatan aktivitas perdagangan lokal (kepadatan pertokoan)." },
-  { blok: "Perbankan (B2)", hubungan: "Produktivitas ↑, Aktivasi ↑", arah: "up", interpretasi: "Satu-satunya blok yang konsisten pada kedua dimensi — bank pemerintah maupun swasta." },
-  { blok: "Infrastruktur Pertanian (B3)", hubungan: "Aktivasi ekonomi ↓", arah: "down", interpretasi: "Kelangkaan air dan ketergantungan tadah hujan — bersifat struktural, perlu investasi irigasi." },
-  { blok: "Konektivitas Fisik (B4)", hubungan: "Tidak konsisten", arah: "none", interpretasi: "Belum menunjukkan hubungan yang konsisten pada model terpangkas." },
-  { blok: "Konektivitas Digital (B5)", hubungan: "Tidak konsisten", arah: "none", interpretasi: "Pengaruh tidak konsisten setelah seleksi model." },
+  { blok: "Perbankan (B2)", hubungan: "Produktivitas ↑, Aktivasi ↑", arah: "up", interpretasi: "Satu-satunya blok yang signifikan pada kedua dimensi, bank pemerintah maupun swasta." },
+  { blok: "Infrastruktur Pertanian (B3)", hubungan: "Aktivasi ekonomi ↓", arah: "down", interpretasi: "Kelangkaan air dan pemanenan air hujan, bersifat struktural, perlu investasi pengelolaan air pertanian." },
+  { blok: "Konektivitas Fisik (B4)", hubungan: "Tidak bertahan", arah: "none", interpretasi: "Hubungan tidak bertahan setelah penyaringan observasi berpengaruh (Cook's Distance)" },
+  { blok: "Konektivitas Digital (B5)", hubungan: "Tidak signifikan", arah: "none", interpretasi: "Belum menunjukkan hubungan yang signifikan pada model terpangkas." },
   { blok: "Modal Manusia (B6)", hubungan: "Aktivasi ekonomi ↓ (lemah)", arah: "mixed", interpretasi: "Temuan masih bersifat eksploratif, belum memadai sebagai dasar rekomendasi." },
-  { blok: "Kesehatan (B7)", hubungan: "Produktivitas ↓, Aktivasi ↑", arah: "mixed", interpretasi: "Terutama fasilitas kesehatan swasta (RS, klinik pratama, dokter mandiri), bukan puskesmas. Arah sebab-akibat belum pasti." },
+  { blok: "Kesehatan (B7)", hubungan: "Produktivitas ↓, Aktivasi ↑", arah: "mixed", interpretasi: "Terutama fasilitas kesehatan swasta (RS, klinik pratama, dokter mandiri), bukan puskesmas. Diperlakukan sebagai pemerataan layanan dasar, bukan pengungkit aktivasi ekonomi." },
 ];
 
 const ARAH_COLOR: Record<Row["arah"], string> = {
@@ -28,8 +28,8 @@ export function DeterminantsPanel() {
       <p style={{ color: "var(--text-secondary)", fontSize: 14, lineHeight: 1.6 }}>
         Dari tujuh dimensi institusional PODES, empat blok menunjukkan hubungan empiris yang
         konsisten (p&lt;0,05) terhadap produktivitas pertanian dan/atau aktivasi ekonomi pada
-        model terpangkas (Bagian 3.3). Hanya blok-blok ini yang digunakan sebagai dasar diagnosis
-        kendala utama pada kerangka prioritas.
+        model terpangkas (Bagian 3.3). Keempat blok inilah yang menjadi dasar diagnosis kendala 
+        utama pada kerangka prioritas.
       </p>
       <div style={{ overflowX: "auto" }}>
         <table style={{ borderCollapse: "collapse", width: "100%", fontSize: 13 }}>
@@ -54,9 +54,7 @@ export function DeterminantsPanel() {
         </table>
       </div>
       <p style={{ color: "var(--text-muted)", fontSize: 12 }}>
-        Tanda panah menunjukkan arah pengaruh signifikan pada model terpangkas setelah
-        penyaringan observasi berpengaruh (Cook's Distance, ambang 4/N). Rincian koefisien
-        tersedia pada lampiran naskah.
+        Catatan: Tanda panah menunjukkan arah hubungan signifikan pada model terpangkas setelah penyaringan observasi berpengaruh (Cook's Distance, ambang 4/N).
       </p>
     </div>
   );

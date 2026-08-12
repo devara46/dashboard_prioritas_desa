@@ -134,12 +134,16 @@ const records = population.map((p) => {
   const quadrant = c ? Math.round(toFloat(c.quadrant)) : null;
   const bindingRaw = iv?.binding_constraint ? iv.binding_constraint.replace(/^z_/, "") : null;
 
-  // 3 of 688 Q1 villages have a positive `magnitude` on their assigned binding
+  // 6 of 688 Q1 villages have a positive `magnitude` on their assigned binding
   // constraint (i.e. that block is actually ABOVE the provincial average, not a
-  // real deficiency) with `severity` incorrectly stored as -magnitude instead of
-  // abs(magnitude). Rather than either propagate the sign bug or misrepresent
-  // "above average" as "severe," these 3 are treated as having no genuine
-  // binding constraint among the 4 validated blocks.
+  // real deficiency), with `severity` stored as -magnitude instead of abs(magnitude).
+  // These stay in their originally-assigned kelompok/kendala_utama/jenjang_prioritas
+  // so Kelompok 1 = 436 and Prioritas I = 127 keep matching the manuscript exactly —
+  // they're flagged (no_binding_constraint) for the dashboard to display a caveat
+  // rather than removed from the framework, since removing them would itself
+  // create a mismatch against the published counts. The one thing suppressed is
+  // `lever` (the intervention recommendation), since recommending an intervention
+  // for a block that isn't actually deficient would be actively misleading.
   const noBindingConstraint = Boolean(iv && toFloat(iv.magnitude) > 0);
 
   return {
@@ -172,20 +176,23 @@ const records = population.map((p) => {
     profil: quadrant ? PROFIL_LABEL[quadrant] : null,
 
     no_binding_constraint: noBindingConstraint,
-    kelompok: iv && !noBindingConstraint ? KELOMPOK_LABEL[iv.tier] : null,
-    kendala_utama: noBindingConstraint ? null : bindingRaw,
-    kendala_utama_label: noBindingConstraint ? null : bindingRaw ? BLOCK_LABEL[bindingRaw] : null,
+    kelompok: iv ? KELOMPOK_LABEL[iv.tier] : null,
+    kendala_utama: bindingRaw,
+    kendala_utama_label: bindingRaw ? BLOCK_LABEL[bindingRaw] : null,
     lever: noBindingConstraint ? null : iv?.lever || null,
-    note: noBindingConstraint ? null : iv?.note || null,
-    besaran_kendala: iv && !noBindingConstraint ? toFloat(iv.magnitude) : null,
-    severity: iv && !noBindingConstraint ? toFloat(iv.severity) : null,
-    jenjang_prioritas: noBindingConstraint ? null : jenjangById.get(id) ?? null,
+    note: iv?.note || null,
+    besaran_kendala: iv ? toFloat(iv.magnitude) : null,
+    severity: iv ? toFloat(iv.severity) : null,
+    jenjang_prioritas: jenjangById.get(id) ?? null,
   };
 });
 
 console.log(`Merged ${records.length} village records.`);
 console.log(
-  `No-binding-constraint override applied to ${records.filter((r) => r.no_binding_constraint).length} villages (positive magnitude on assigned block).`
+  `${records.filter((r) => r.no_binding_constraint).length} villages flagged no_binding_constraint (positive magnitude on assigned block) — kept in their kelompok/jenjang_prioritas, lever suppressed.`
+);
+console.log(
+  `Kelompok 1: ${records.filter((r) => r.kelompok === "Kelompok 1").length}, Kelompok 2: ${records.filter((r) => r.kelompok === "Kelompok 2").length}`
 );
 
 // --- split into geo (has polygon) vs full master list (includes the 10 without geometry) ---

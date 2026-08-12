@@ -88,8 +88,8 @@ export function ScatterView({ records, onSelect }: Props) {
               stroke="var(--baseline)"
             />
             <ZAxis range={[28, 28]} />
-            <ReferenceLine x={0} stroke="var(--baseline)" strokeDasharray="4 4" />
-            <ReferenceLine y={0} stroke="var(--baseline)" strokeDasharray="4 4" />
+            <ReferenceLine x={0} stroke="var(--baseline)" strokeDasharray="4 4" strokeWidth={5} />
+            <ReferenceLine y={0} stroke="var(--baseline)" strokeDasharray="4 4" strokeWidth={5} />
             <Tooltip
               cursor={{ strokeDasharray: "3 3" }}
               content={({ active, payload }) => {

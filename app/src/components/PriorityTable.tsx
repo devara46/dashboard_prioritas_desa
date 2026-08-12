@@ -120,33 +120,30 @@ export function PriorityTable({ records, onSelect }: Props) {
               >
                 <td style={{ padding: "8px 12px", fontWeight: 600 }}>{r.nama_desa}</td>
                 <td style={{ padding: "8px 12px", color: "var(--text-secondary)" }}>{r.kabupaten_kota}</td>
-                {r.no_binding_constraint ? (
-                  <td colSpan={4} style={{ padding: "8px 12px", color: "var(--text-muted)", fontStyle: "italic" }}>
-                    Tidak ada kendala di bawah rata-rata pada B1/B2/B3/B7 — tidak masuk kerangka prioritas
-                  </td>
-                ) : (
-                  <>
-                    <td style={{ padding: "8px 12px" }}>{r.kelompok}</td>
-                    <td style={{ padding: "8px 12px" }}>{r.kendala_utama_label}</td>
-                    <td style={{ padding: "8px 12px" }}>
-                      <span
-                        style={{
-                          display: "inline-block",
-                          padding: "2px 8px",
-                          borderRadius: 999,
-                          fontSize: 12,
-                          color: "#fff",
-                          background: JENJANG_COLOR[r.jenjang_prioritas ?? ""] ?? "var(--text-muted)",
-                        }}
-                      >
-                        {r.jenjang_prioritas}
-                      </span>
-                    </td>
-                    <td className="tabular-nums" style={{ padding: "8px 12px" }}>
-                      {r.severity?.toFixed(2)}
-                    </td>
-                  </>
-                )}
+                <td style={{ padding: "8px 12px" }}>{r.kelompok}</td>
+                <td style={{ padding: "8px 12px" }} title={r.no_binding_constraint ? "Tidak ada kendala mengikat pada blok tervalidasi" : undefined}>
+                  {r.kendala_utama_label}
+                  {r.no_binding_constraint && (
+                    <span style={{ color: "var(--warning)" }}> ⚠ tidak mengikat</span>
+                  )}
+                </td>
+                <td style={{ padding: "8px 12px" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      padding: "2px 8px",
+                      borderRadius: 999,
+                      fontSize: 12,
+                      color: "#fff",
+                      background: JENJANG_COLOR[r.jenjang_prioritas ?? ""] ?? "var(--text-muted)",
+                    }}
+                  >
+                    {r.jenjang_prioritas}
+                  </span>
+                </td>
+                <td className="tabular-nums" style={{ padding: "8px 12px" }}>
+                  {r.severity?.toFixed(2)}
+                </td>
               </tr>
             ))}
           </tbody>

@@ -52,7 +52,7 @@ function App() {
       >
         <h1 style={{ margin: 0, fontSize: 20 }}>Dasbor Prioritas Desa — Sulawesi Tenggara</h1>
         <p style={{ margin: "4px 0 12px", fontSize: 13, color: "var(--text-secondary)" }}>
-          Kerangka dukungan keputusan spasial: produktivitas pertanian (NDVI) × aktivasi ekonomi
+          Kerangka pendukung keputusan spasial: produktivitas pertanian (NDVI) × aktivasi ekonomi
           (VIIRS) × kelembagaan desa (PODES)
         </p>
         <MethodologyPanel />
@@ -86,8 +86,9 @@ function App() {
       <main style={{ flex: 1, minHeight: 0, padding: 20, display: "flex", flexDirection: "column" }}>
         {tab === "peta" && (
           <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+            <ProfilLegend />
+            <h2 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Pencarian Wilayah</h2>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <ProfilLegend />
               <RegionFilter
                 records={records}
                 kabupaten={mapKabupaten}

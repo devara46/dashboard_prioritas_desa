@@ -112,10 +112,12 @@ export function MethodologyPanel() {
             }}
           >
             Purwarupa ini mengoperasionalkan hasil Tabel 3 dari{" "}
-            <span style={{ color: "var(--critical)", fontStyle: "normal" }}>
-              [ISI: judul singkat/nama penulis paper]
-            </span>
-            .
+            <span style={{ fontStyle: "normal" }}>
+              &ldquo;PRODUKTIVITAS TINGGI, AKTIVASI EKONOMI RENDAH: KERANGKA PENDUKUNG KEPUTUSAN
+              SPASIAL UNTUK DIAGNOSIS KELEMBAGAAN DAN PRIORITAS INTERVENSI DESA DI SULAWESI
+              TENGGARA&rdquo;
+            </span>{" "}
+            oleh Saadi dan Dwicahayaniawan.
           </p>
         </div>
       )}
